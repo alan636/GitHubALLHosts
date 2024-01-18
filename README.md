@@ -4,6 +4,8 @@
   <br><strong><a href="https://github.com/521xueweihan/HelloGitHub" target="_blank">HelloGitHub</a></strong> 分享 GitHub 上有趣、入门级的开源项目。<br>兴趣是最好的老师，这里能够帮你找到编程的兴趣！
 </p>
 
+服务器续费到 2024.12 共花了：1500+💰 [点击扫码赞助](https://cdn.jsdelivr.net/gh/521xueweihan/img_logo@main/logo/receiving_code.png)，感谢🙏
+
 ## 一、介绍
 对 GitHub 说"爱"太难了：访问慢、图片加载不出来。
 
@@ -24,15 +26,15 @@
 
 下面的地址无需访问 GitHub 即可获取到最新的 hosts 内容：
 
-- host文件：`https://cdn.jsdelivr.net/gh/alan636/GitHubALLHosts@main/hosts`
-- host的JSON：`https://cdn.jsdelivr.net/gh/alan636/GitHubALLHosts@main/hosts.json`
+- 文件：`https://raw.hellogithub.com/hosts`
+- JSON：`https://raw.hellogithub.com/hosts.json`
 
 ### 2.1 手动方式
 
 #### 2.1.1 复制下面的内容
 
 ```bash
-# GitHub520 Host Start
+# GitHubALLHosts Start
 140.82.114.25                 alive.github.com
 140.82.114.5                  api.github.com
 185.199.108.153               assets-cdn.github.com
@@ -51,15 +53,15 @@
 185.199.109.133               desktop.githubusercontent.com
 185.199.109.133               favicons.githubusercontent.com
 140.82.112.4                  gist.github.com
-52.217.34.20                  github-cloud.s3.amazonaws.com
-52.217.81.156                 github-com.s3.amazonaws.com
-52.216.132.195                github-production-release-asset-2e65be.s3.amazonaws.com
-54.231.232.177                github-production-repository-file-5c1aeb.s3.amazonaws.com
-16.182.97.81                  github-production-user-asset-6210df.s3.amazonaws.com
+16.182.75.17                  github-cloud.s3.amazonaws.com
+52.217.126.33                 github-com.s3.amazonaws.com
+52.217.116.105                github-production-release-asset-2e65be.s3.amazonaws.com
+52.217.46.60                  github-production-repository-file-5c1aeb.s3.amazonaws.com
+52.216.58.241                 github-production-user-asset-6210df.s3.amazonaws.com
 192.0.66.2                    github.blog
 140.82.112.3                  github.com
 140.82.113.17                 github.community
-185.199.110.154               github.githubassets.com
+185.199.108.154               github.githubassets.com
 151.101.1.194                 github.global.ssl.fastly.net
 185.199.108.153               github.io
 185.199.109.133               github.map.fastly.net
@@ -74,14 +76,14 @@
 140.82.113.22                 education.github.com
 
 
-# Update time: 2024-01-18T20:07:20+08:00
-# Update url: https://cdn.jsdelivr.net/gh/alan636/GitHubALLHosts@main/hosts
-# Star me: https://github.com/521xueweihan/GitHub520
-# GitHub520 Host End
+# Update time: 2024-01-19T00:10:59+08:00
+# Update url: https://github.com/alan636/GitHubALLHosts/blob/main/hosts
+# Star me: https://github.com/alan636/GitHubALLHosts/
+# GitHubALLHosts End
 
 ```
 
-该内容会自动定时更新， 数据更新时间：2024-01-18T20:07:20+08:00
+该内容会自动定时更新， 数据更新时间：2024-01-19T00:10:59+08:00
 
 #### 2.1.2 修改 hosts 文件
 
@@ -119,7 +121,7 @@ hosts 文件在每个系统的位置不一，详情如下：
 
 - Hosts 标题: 随意
 
-- URL: `https://cdn.jsdelivr.net/gh/alan636/GitHubALLHosts@main/hosts`
+- URL: `https://raw.hellogithub.com/hosts`
 
 - 自动刷新: 最好选 `1 小时`
 
@@ -133,17 +135,17 @@ hosts 文件在每个系统的位置不一，详情如下：
 
 #### GNU（Ubuntu/CentOS/Fedora）
 
-`sudo sh -c 'sed -i "/# GitHub520 Host Start/Q" /etc/hosts && curl https://cdn.jsdelivr.net/gh/alan636/GitHubALLHosts@main/hosts >> /etc/hosts'`
+`sudo sh -c 'sed -i "/# GitHub520 Host Start/Q" /etc/hosts && curl https://raw.hellogithub.com/hosts >> /etc/hosts'`
 
 #### BSD/macOS
 
-`sed -i "" "/# GitHub520 Host Start/,/# Github520 Host End/d" /etc/hosts && curl https://cdn.jsdelivr.net/gh/alan636/GitHubALLHosts@main/hosts >> /etc/hosts`
+`sed -i "" "/# GitHub520 Host Start/,/# Github520 Host End/d" /etc/hosts && curl https://raw.hellogithub.com/hosts >> /etc/hosts`
 
 将上面的命令添加到 cron，可定时执行。使用前确保 GitHub520 内容在该文件最后部分。
 
 #### 在 Dcker 中运行，若遇到 `Device or resource busy` 错误，可使用以下命令执行
 
-`cp /etc/hosts ~/hosts.new && sed -i "/# GitHub520 Host Start/Q" ~/hosts.new && curl https://cdn.jsdelivr.net/gh/alan636/GitHubALLHosts@main/hosts >> ~/hosts.new && cp -f ~/hosts.new /etc/hosts`
+`cp /etc/hosts ~/hosts.new && sed -i "/# GitHub520 Host Start/Q" ~/hosts.new && curl https://raw.hellogithub.com/hosts >> ~/hosts.new && cp -f ~/hosts.new /etc/hosts`
 
 ### 2.4 AdGuard 用户（自动方式）
 
@@ -151,7 +153,7 @@ hosts 文件在每个系统的位置不一，详情如下：
 
 - 名称：随意
 
-- URL：`https://cdn.jsdelivr.net/gh/alan636/GitHubALLHosts@main/hosts`（和上面 SwitchHosts 使用的一样）
+- URL：`https://raw.hellogithub.com/hosts`（和上面 SwitchHosts 使用的一样）
 
 如图：
 
