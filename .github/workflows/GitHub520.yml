@@ -33,7 +33,7 @@ jobs:
     - name: commit
       id: commit
       run: |
-        git config --global user.email ${{ user:email }}
+        git config --global user.email ${{ secrets.EMAIL_USERNAME }}
         git config --global user.name action_bot
         git add .
         git commit -m "update readme content"
