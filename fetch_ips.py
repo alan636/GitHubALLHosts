@@ -5,6 +5,10 @@
 #   E-mail  :   595666367@qq.com
 #   Date    :   2020-05-19 15:27
 #   Desc    :   获取最新的 GitHub 相关域名对应 IP
+#   Date    :   2024-01-18 20:49
+#   Add     :   新增 GitHub 域名
+
+
 import os
 import re
 import json
@@ -17,33 +21,35 @@ from requests_html import HTMLSession
 from retry import retry
 
 GITHUB_URLS = [
-    'alive.github.com', 'api.github.com', 'assets-cdn.github.com',
-    'avatars.githubusercontent.com', 'avatars0.githubusercontent.com',
-    'avatars1.githubusercontent.com', 'avatars2.githubusercontent.com',
-    'avatars3.githubusercontent.com', 'avatars4.githubusercontent.com',
-    'avatars5.githubusercontent.com', 'camo.githubusercontent.com',
-    'central.github.com', 'cloud.githubusercontent.com', 'codeload.github.com',
-    'collector.github.com', 'desktop.githubusercontent.com',
-    'favicons.githubusercontent.com', 'gist.github.com',
-    'github-cloud.s3.amazonaws.com', 'github-com.s3.amazonaws.com',
-    'github-production-release-asset-2e65be.s3.amazonaws.com',
+    'alive.github.com','api.github.com','apps.github.com','assets-cdn.github.com',
+    'avatars.githubusercontent.com','avatars0.githubusercontent.com',
+    'avatars1.githubusercontent.com','avatars2.githubusercontent.com',
+    'avatars3.githubusercontent.com','avatars4.githubusercontent.com',
+    'avatars5.githubusercontent.com','camo.githubusercontent.com',
+    'central.github.com','cloud.githubusercontent.com','codeload.github.com',
+    'collector.github.com','copilot.github.com','desktop.githubusercontent.com',
+    'docs.github.com','education.github.com','favicons.githubusercontent.com',
+    'feedback.github.com','gist.github.com','github-cloud.s3.amazonaws.com',
+    'github-com.s3.amazonaws.com','github-production-release-asset-2e65be.s3.amazonaws.com',
     'github-production-repository-file-5c1aeb.s3.amazonaws.com',
-    'github-production-user-asset-6210df.s3.amazonaws.com', 'github.blog',
-    'github.com', 'github.community', 'github.githubassets.com',
-    'github.global.ssl.fastly.net', 'github.io', 'github.map.fastly.net',
-    'githubstatus.com', 'live.github.com', 'media.githubusercontent.com',
-    'objects.githubusercontent.com', 'pipelines.actions.githubusercontent.com',
-    'raw.githubusercontent.com', 'user-images.githubusercontent.com',
-    'vscode.dev', 'education.github.com'
+    'github-production-user-asset-6210df.s3.amazonaws.com','github.blog',
+    'github.com','github.community','github.dev','github.githubassets.com',
+    'github.global.ssl.fastly.net','github.io','github.map.fastly.net',
+    'githubstatus.com','help.github.com','live.github.com',
+    'media.githubusercontent.com','objects.githubusercontent.com',
+    'packages.github.com','pages.github.com','pipelines.actions.githubusercontent.com',
+    'raw.githubusercontent.com','sponsors.github.com','status.github.com',
+    'support.github.com','training-kit.github.com','training.github.com',
+    'user-images.githubusercontent.com'
 ]
 
-HOSTS_TEMPLATE = """# GitHub520 Host Start
+HOSTS_TEMPLATE = """# GitHubALLHosts Start
 {content}
 
 # Update time: {update_time}
-# Update url: https://raw.hellogithub.com/hosts
-# Star me: https://github.com/521xueweihan/GitHub520
-# GitHub520 Host End\n"""
+# Update url: https://github.com/alan636/GitHubALLHosts/blob/main/hosts
+# Star me: https://github.com/alan636/GitHubALLHosts/
+# GitHubALLHosts End\n"""
 
 
 def write_file(hosts_content: str, update_time: str) -> bool:
