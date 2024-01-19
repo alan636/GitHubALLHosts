@@ -147,6 +147,7 @@ def get_ip(session: Any, github_url: str) -> Optional[str]:
         table = rs.html.find('#dns', first=True)
         pattern = r"\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b"
         ip_list = re.findall(pattern, table.text)
+        print(github_url,' = ',ip_list)
         best_ip = get_best_ip(ip_list)
         if best_ip:
             return best_ip
