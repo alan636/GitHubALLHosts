@@ -37,8 +37,9 @@ jobs:
         git config --global user.email action@github.com
         git config --global user.name GitHub Action
         git add .
-        git commit -m "update readme content"
-        git push origin master
+        git status
+        git commit -m "update readme content" || echo "No changes to commit"
+        git push origin main
         ls -la
         git -v
       continue-on-error: false
