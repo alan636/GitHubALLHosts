@@ -18,7 +18,7 @@ jobs:
         python-version: [3.7]
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
@@ -39,12 +39,14 @@ jobs:
         git add .
         git commit -m "update readme content"
         git push origin master
-        ls
-        git -version
+        ls -la
+        git -v
       continue-on-error: false
     - name: Check on failures
       if: steps.commit.outputs.status == 'failure'
-      run: exit 1
+      run: |
+        echo 'steps.commit.outputs.status == failure'
+        exit 1
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
