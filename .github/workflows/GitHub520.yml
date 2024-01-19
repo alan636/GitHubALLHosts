@@ -31,13 +31,15 @@ jobs:
       run: |
         echo "api.github.com"
         curl -I https://api.github.com
-        ping -c 4 api.github.com
         echo "assets-cdn.github.com"
         curl -I https://assets-cdn.github.com
-        ping -c 4 assets-cdn.github.com
         echo "avatars.githubusercontent.com"
         curl -I https://avatars.githubusercontent.com
-        ping -c 4 avatars.githubusercontent.com
+        echo "yml的python单独测试网络开始"
+        python -c "import socket; print(socket.gethostbyname('api.github.com'))"
+        python -c "import socket; print(socket.gethostbyname('assets-cdn.github.com'))"
+        python -c "import socket; print(socket.gethostbyname('avatars.githubusercontent.com'))"
+        echo "yml的python单独测试结束"
     - name: run script
       run: |
         # fetch new ip content and update readme file

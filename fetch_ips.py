@@ -144,10 +144,22 @@ def get_ip(session: Any, github_url: str) -> Optional[str]:
         print(f"get: {url}, error: {ex}")
         raise Exception
 
+import socket
+
+def test_connectivity(host, port=80):
+    try:
+        with socket.create_connection((host, port), timeout=10):
+            print(f"Connection to {host} on port {port} succeeded.")
+    except Exception as e:
+        print(f"Connection to {host} on port {port} failed: {e}")
+
 
 def main(verbose=False) -> None:
     if verbose:
         print('Start script.')
+        domains = ['api.github.com', 'assets-cdn.github.com', 'avatars.githubusercontent.com']
+        for domain in domains:
+            test_connectivity(domain)
     session = HTMLSession()
     content = ""
     # content_list = get_json(session)
