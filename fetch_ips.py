@@ -130,6 +130,8 @@ def get_ip(session: Any, github_url: str) -> Optional[str]:
     try:
         rs = session.get(url, headers=headers, timeout=5)
         table = rs.html.find('#dns', first=True)
+        #打印网页内容
+        print('\n============网页内容===============\n',table.text,'\n▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔')
         pattern = r"\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b"
         ip_list = re.findall(pattern, table.text)
         print(github_url,' = ',ip_list)
