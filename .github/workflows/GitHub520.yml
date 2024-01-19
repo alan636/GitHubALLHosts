@@ -39,9 +39,7 @@ jobs:
         git add .
         git commit -m "update readme content"
         git push origin master
-        echo "::set-output name=status::success"
-    - name: Check on success
-      if: steps.commit.outputs.status == 'success'
+        ls -la
       continue-on-error: false
     - name: Check on failures
       if: steps.commit.outputs.status == 'failure'
