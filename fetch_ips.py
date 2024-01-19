@@ -52,18 +52,24 @@ HOSTS_TEMPLATE = """# GitHubALLHosts Start
 
 def write_host_file(hosts_content: str) -> None:
     output_file_path = os.path.join(os.path.dirname(__file__), 'hosts')
+    print('output_file_path=',output_file_path)
     with open(output_file_path, "w") as output_fb:
         output_fb.write(hosts_content)
+        print('写入本地hosts文件内容为：', hosts_content)
+    with open(output_file_path ,'w') as output_f:
+        print('立即读出本地hosts：\n',output_f.read())
 
 
 def write_file(hosts_content: str, update_time: str) -> bool:
     readme_path    = os.path.join(os.path.dirname(__file__), "README.md")
     template_path           = os.path.join(os.path.dirname(__file__), "README_template.md")
+    print('readme_path=',readme_path, '\ntemplate_path=',template_path)
     write_host_file(hosts_content)
     if os.path.exists(readme_path):
         with open(readme_path, "r") as old_readme_fb:
             old_content = old_readme_fb.read()
             if old_content:
+                print('old_content=\n',old_content)
                 old_hosts = old_content.split("```bash")[1].split("# Update time:")[0].strip()
                 hosts_content_hosts = hosts_content.split("# Update time:")[0].strip()
                 if old_hosts == hosts_content_hosts:
