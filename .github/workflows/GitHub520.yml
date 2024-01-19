@@ -34,11 +34,15 @@ jobs:
     - name: commit
       id: commit
       run: |
-        git config --global user.email user@github.com
-        git config --global user.name action_bot
+        git config --global user.email action@github.com
+        git config --global user.name GitHub Action
         git add .
         git commit -m "update readme content"
-      continue-on-error: true
+        git push origin master
+        echo "::set-output name=status::success"
+    - name: Check on success
+      if: steps.commit.outputs.status == 'success'
+      continue-on-error: false
     - name: Check on failures
       if: steps.commit.outputs.status == 'failure'
       run: exit 1
