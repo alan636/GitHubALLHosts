@@ -12,6 +12,7 @@
 import os
 import re
 import json
+import chardet
 from typing import Any, Optional
 
 from datetime import datetime, timezone, timedelta
@@ -21,27 +22,25 @@ from requests_html import HTMLSession
 from retry import retry
 
 GITHUB_URLS = [
-    'alive.github.com','api.github.com','apps.github.com','assets-cdn.github.com',
-    'avatars.githubusercontent.com','avatars0.githubusercontent.com',
-    'avatars1.githubusercontent.com','avatars2.githubusercontent.com',
-    'avatars3.githubusercontent.com','avatars4.githubusercontent.com',
-    'avatars5.githubusercontent.com','camo.githubusercontent.com',
-    'central.github.com','cloud.githubusercontent.com','codeload.github.com',
-    'collector.github.com','copilot.github.com','desktop.githubusercontent.com',
-    'docs.github.com','education.github.com','favicons.githubusercontent.com',
-    'feedback.github.com','gist.github.com','github-cloud.s3.amazonaws.com',
-    'github-com.s3.amazonaws.com','github-production-release-asset-2e65be.s3.amazonaws.com',
-    'github-production-repository-file-5c1aeb.s3.amazonaws.com',
-    'github-production-user-asset-6210df.s3.amazonaws.com','github.blog',
-    'github.com','github.community','github.dev','github.githubassets.com',
-    'github.global.ssl.fastly.net','github.io','github.map.fastly.net',
-    'githubstatus.com','help.github.com','live.github.com',
-    'media.githubusercontent.com','objects.githubusercontent.com',
-    'packages.github.com','pages.github.com','pipelines.actions.githubusercontent.com',
-    'raw.githubusercontent.com','sponsors.github.com','status.github.com',
-    'support.github.com','training-kit.github.com','training.github.com',
-    'user-images.githubusercontent.com'
+    'api.github.com','assets-cdn.github.com','avatars.githubusercontent.com'
 ]
+# GITHUB_URLS = [
+#     'api.github.com','assets-cdn.github.com','avatars.githubusercontent.com',
+#     'avatars0.githubusercontent.com','avatars1.githubusercontent.com','avatars2.githubusercontent.com',
+#     'avatars3.githubusercontent.com','avatars4.githubusercontent.com','avatars5.githubusercontent.com',
+#     'camo.githubusercontent.com','central.github.com','cloud.githubusercontent.com',
+#     'codeload.github.com','collector.github.com','copilot.github.com',
+#     'desktop.githubusercontent.com','docs.github.com','education.github.com',
+#     'favicons.githubusercontent.com','gist.github.com','github-cloud.s3.amazonaws.com',
+#     'github-com.s3.amazonaws.com','github-production-release-asset-2e65be.s3.amazonaws.com',
+#     'github-production-repository-file-5c1aeb.s3.amazonaws.com',
+#     'github-production-user-asset-6210df.s3.amazonaws.com','github.blog','github.com',
+#     'github.community','github.dev','github.githubassets.com','github.global.ssl.fastly.net',
+#     'github.io','github.map.fastly.net','githubstatus.com','help.github.com','live.github.com',
+#     'media.githubusercontent.com','objects.githubusercontent.com','pages.github.com',
+#     'pipelines.actions.githubusercontent.com','raw.githubusercontent.com','status.github.com',
+#     'support.github.com','training.github.com','user-images.githubusercontent.com'
+# ]
 
 HOSTS_TEMPLATE = """# GitHubALLHosts Start
 {content}
@@ -51,30 +50,46 @@ HOSTS_TEMPLATE = """# GitHubALLHosts Start
 # Star me: https://github.com/alan636/GitHubALLHosts/
 # GitHubALLHosts End\n"""
 
+        
+def read_file_adaptive_encoding(file_path):
+    with open(file_path, 'rb') as file:
+        raw_data = file.read()
+        result = chardet.detect(raw_data)
+        encoding = result['encoding']
+        print(encoding)
+    if (encoding == None):
+        encoding = 'utf-8'
+
+    with open(file_path, 'r', encoding=encoding) as file:
+        content = file.read()
+    
+    return content
 
 def write_file(hosts_content: str, update_time: str) -> bool:
     output_doc_file_path = os.path.join(os.path.dirname(__file__), "README.md")
-    template_path = os.path.join(os.path.dirname(__file__),
-                                 "README_template.md")
+    template_path = os.path.join(os.path.dirname(__file__), "README_template.md")
     write_host_file(hosts_content)
     if os.path.exists(output_doc_file_path):
-        with open(output_doc_file_path, "r") as old_readme_fb:
-            old_content = old_readme_fb.read()
+        # with open(output_doc_file_path, "r") as old_readme_fb:
+        #     old_content = old_readme_fb.read()
+            old_content = read_file_adaptive_encoding(output_doc_file_path)
             if old_content:
                 old_hosts = old_content.split("```bash")[1].split("```")[0].strip()
                 old_hosts = old_hosts.split("# Update time:")[0].strip()
-                hosts_content_hosts = hosts_content.split("# Update time:")[
-                    0].strip()
+                hosts_content_hosts = hosts_content.split("# Update time:")[0].strip()
                 if old_hosts == hosts_content_hosts:
                     print("host not change")
                     return False
 
-    with open(template_path, "r") as temp_fb:
-        template_str = temp_fb.read()
+    # with open(template_path, "r") as temp_fb:
+    #     template_str = temp_fb.read()
+    if os.path.exists(template_path):
+        template_str = read_file_adaptive_encoding(template_path)
         hosts_content = template_str.format(hosts_str=hosts_content,
                                             update_time=update_time)
         with open(output_doc_file_path, "w") as output_fb:
             output_fb.write(hosts_content)
+
     return True
 
 
@@ -104,6 +119,7 @@ def get_best_ip(ip_list: list) -> str:
             if ping_result.rtt_avg_ms < min_ms:
                 min_ms = ping_result.rtt_avg_ms
                 best_ip = ip
+
     return best_ip
 
 
