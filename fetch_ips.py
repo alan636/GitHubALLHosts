@@ -157,7 +157,7 @@ def test_connectivity(host, port=80):
 def main(verbose=False) -> None:
     if verbose:
         print('Start script.')
-        domains = ['api.github.com', 'assets-cdn.github.com', 'avatars.githubusercontent.com']
+        domains = ['sites.ipaddress.com/api.github.com']
         for domain in domains:
             test_connectivity(domain)
     session = HTMLSession()

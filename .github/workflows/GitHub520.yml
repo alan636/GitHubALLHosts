@@ -30,15 +30,9 @@ jobs:
     - name: Test connectivity to api.github.com
       run: |
         echo "api.github.com"
-        curl -I https://api.github.com
-        echo "assets-cdn.github.com"
-        curl -I https://assets-cdn.github.com
-        echo "avatars.githubusercontent.com"
-        curl -I https://avatars.githubusercontent.com
+        curl -I https://sites.ipaddress.com/api.github.com
         echo "yml的python单独测试网络开始"
-        python -c "import socket; print(socket.gethostbyname('api.github.com'))"
-        python -c "import socket; print(socket.gethostbyname('assets-cdn.github.com'))"
-        python -c "import socket; print(socket.gethostbyname('avatars.githubusercontent.com'))"
+        python -c "import socket; print(socket.gethostbyname('https://sites.ipaddress.com/api.github.com'))"
         echo "yml的python单独测试结束"
     - name: run script
       run: |
