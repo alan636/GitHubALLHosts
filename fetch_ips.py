@@ -12,7 +12,6 @@
 import os
 import re
 import json
-import chardet
 from typing import Any, Optional
 
 from datetime import datetime, timezone, timedelta
@@ -51,28 +50,13 @@ HOSTS_TEMPLATE = """# GitHubALLHosts Start
 # GitHubALLHosts End\n"""
 
         
-def read_file_adaptive_encoding(file_path):
-    with open(file_path, 'rb') as file:
-        raw_data = file.read()
-        result = chardet.detect(raw_data)
-        encoding = result['encoding']
-        print(encoding)
-    if (encoding == None):
-        encoding = 'utf-8'
-
-    with open(file_path, 'r', encoding=encoding) as file:
-        content = file.read()
-    
-    return content
-
 def write_file(hosts_content: str, update_time: str) -> bool:
     output_doc_file_path = os.path.join(os.path.dirname(__file__), "README.md")
     template_path = os.path.join(os.path.dirname(__file__), "README_template.md")
     write_host_file(hosts_content)
     if os.path.exists(output_doc_file_path):
-        # with open(output_doc_file_path, "r") as old_readme_fb:
-        #     old_content = old_readme_fb.read()
-            old_content = read_file_adaptive_encoding(output_doc_file_path)
+        with open(output_doc_file_path, "r") as old_readme_fb:
+            old_content = old_readme_fb.read()
             if old_content:
                 old_hosts = old_content.split("```bash")[1].split("```")[0].strip()
                 old_hosts = old_hosts.split("# Update time:")[0].strip()
@@ -81,10 +65,8 @@ def write_file(hosts_content: str, update_time: str) -> bool:
                     print("host not change")
                     return False
 
-    # with open(template_path, "r") as temp_fb:
-    #     template_str = temp_fb.read()
-    if os.path.exists(template_path):
-        template_str = read_file_adaptive_encoding(template_path)
+    with open(template_path, "r") as temp_fb:
+        template_str = temp_fb.read()
         hosts_content = template_str.format(hosts_str=hosts_content,
                                             update_time=update_time)
         with open(output_doc_file_path, "w") as output_fb:
