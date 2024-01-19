@@ -4,7 +4,6 @@
   <br><strong><a href="https://github.com/521xueweihan/HelloGitHub" target="_blank">HelloGitHub</a></strong> 分享 GitHub 上有趣、入门级的开源项目。<br>兴趣是最好的老师，这里能够帮你找到编程的兴趣！
 </p>
 
-服务器续费到 2024.12 共花了：1500+💰 [点击扫码赞助](https://cdn.jsdelivr.net/gh/521xueweihan/img_logo@main/logo/receiving_code.png)，感谢🙏
 
 ## 一、介绍
 对 GitHub 说"爱"太难了：访问慢、图片加载不出来。
@@ -19,15 +18,15 @@
 
 
 
-*注：* 本项目还处于测试阶段，仅在本机测试通过，如有问题欢迎提 [issues](https://github.com/521xueweihan/GitHub520/issues/new)
+*注：* 本项目还处于测试阶段，仅在本机测试通过，如有问题欢迎提 [issues](https://github.com/alan636/GitHubALLHosts/issues/new)
 
 
 ## 二、使用方法
 
 下面的地址无需访问 GitHub 即可获取到最新的 hosts 内容：
 
-- 文件：`https://raw.hellogithub.com/hosts`
-- JSON：`https://raw.hellogithub.com/hosts.json`
+- 文件：`https://cdn.jsdelivr.net/gh/alan636/GitHubALLHosts@main/hosts`
+- JSON：`https://cdn.jsdelivr.net/gh/alan636/GitHubALLHosts@main/hosts.json`
 
 ### 2.1 手动方式
 
@@ -77,8 +76,8 @@
 
 
 # Update time: 2024-01-19T00:10:59+08:00
-# Update url: https://github.com/alan636/GitHubALLHosts/blob/main/hosts
-# Star me: https://github.com/alan636/GitHubALLHosts/
+# Update url: https://cdn.jsdelivr.net/gh/alan636/GitHubALLHosts@main/hosts
+# Star me: https://cdn.jsdelivr.net/gh/alan636/GitHubALLHosts@main/hosts.json
 # GitHubALLHosts End
 
 ```
