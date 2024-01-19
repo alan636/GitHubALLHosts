@@ -47,7 +47,7 @@ HOSTS_TEMPLATE = """# GitHubALLHosts Start
 {content}
 
 # Update time: {update_time}
-# Update url: https://github.com/alan636/GitHubALLHosts/blob/main/hosts
+# Update url: https://cdn.jsdelivr.net/gh/alan636/GitHubALLHosts@main/hosts
 # Star me: https://github.com/alan636/GitHubALLHosts/
 # GitHubALLHosts End\n"""
 
