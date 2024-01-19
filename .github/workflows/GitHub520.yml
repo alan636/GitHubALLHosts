@@ -39,7 +39,8 @@ jobs:
         git add .
         git commit -m "update readme content"
         git push origin master
-        ls -la
+        ls
+        git -version
       continue-on-error: false
     - name: Check on failures
       if: steps.commit.outputs.status == 'failure'
