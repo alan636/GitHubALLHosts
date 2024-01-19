@@ -49,17 +49,22 @@ HOSTS_TEMPLATE = """# GitHubALLHosts Start
 # Star me: https://github.com/alan636/GitHubALLHosts/
 # GitHubALLHosts End\n"""
 
-        
+
+def write_host_file(hosts_content: str) -> None:
+    output_file_path = os.path.join(os.path.dirname(__file__), 'hosts')
+    with open(output_file_path, "w") as output_fb:
+        output_fb.write(hosts_content)
+
+
 def write_file(hosts_content: str, update_time: str) -> bool:
-    output_doc_file_path = os.path.join(os.path.dirname(__file__), "README.md")
-    template_path = os.path.join(os.path.dirname(__file__), "README_template.md")
+    readme_path    = os.path.join(os.path.dirname(__file__), "README.md")
+    template_path           = os.path.join(os.path.dirname(__file__), "README_template.md")
     write_host_file(hosts_content)
-    if os.path.exists(output_doc_file_path):
-        with open(output_doc_file_path, "r") as old_readme_fb:
+    if os.path.exists(readme_path):
+        with open(readme_path, "r") as old_readme_fb:
             old_content = old_readme_fb.read()
             if old_content:
-                old_hosts = old_content.split("```bash")[1].split("```")[0].strip()
-                old_hosts = old_hosts.split("# Update time:")[0].strip()
+                old_hosts = old_content.split("```bash")[1].split("# Update time:")[0].strip()
                 hosts_content_hosts = hosts_content.split("# Update time:")[0].strip()
                 if old_hosts == hosts_content_hosts:
                     print("host not change")
@@ -67,19 +72,11 @@ def write_file(hosts_content: str, update_time: str) -> bool:
 
     with open(template_path, "r") as temp_fb:
         template_str = temp_fb.read()
-        hosts_content = template_str.format(hosts_str=hosts_content,
-                                            update_time=update_time)
-        with open(output_doc_file_path, "w") as output_fb:
+        hosts_content = template_str.format(hosts_str=hosts_content, update_time=update_time)
+        with open(readme_path, "w") as output_fb:
             output_fb.write(hosts_content)
 
     return True
-
-
-def write_host_file(hosts_content: str) -> None:
-    output_file_path = os.path.join(os.path.dirname(__file__), 'hosts')
-    with open(output_file_path, "w") as output_fb:
-        output_fb.write(hosts_content)
-
 
 def write_json_file(hosts_list: list) -> None:
     output_file_path = os.path.join(os.path.dirname(__file__), 'hosts.json')
@@ -93,7 +90,7 @@ def get_best_ip(ip_list: list) -> str:
     min_ms = ping_timeout * 1000
     for ip in ip_list:
         ping_result = ping(ip, timeout=ping_timeout)
-        print(ping_result.rtt_avg_ms)
+        print(ip,' 的RTT : ',ping_result.rtt_avg_ms)
         if ping_result.rtt_avg_ms == ping_timeout * 1000:
             # 超时认为 IP 失效
             continue
@@ -161,16 +158,17 @@ def main(verbose=False) -> None:
             print(f'process url: {index + 1}/{len(GITHUB_URLS)}')
 
     if not content:
+        print('content值为空');
         return
     update_time = datetime.utcnow().astimezone(
         timezone(timedelta(hours=8))).replace(microsecond=0).isoformat()
-    hosts_content = HOSTS_TEMPLATE.format(content=content,
-                                          update_time=update_time)
+    hosts_content = HOSTS_TEMPLATE.format(content=content, update_time=update_time)
     has_change = write_file(hosts_content, update_time)
     if has_change:
+        print('写入json文件')
         write_json_file(content_list)
     if verbose:
-        print(hosts_content)
+        print("hosts_content",hosts_content)
         print('End script.')
 
 
