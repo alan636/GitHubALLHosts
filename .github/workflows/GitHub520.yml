@@ -27,6 +27,17 @@ jobs:
       run: |
         sudo python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then sudo pip install -r requirements.txt; fi
+    - name: Test connectivity to api.github.com
+      run: |
+        echo "api.github.com"
+        curl -I https://api.github.com
+        ping -c 4 api.github.com
+        echo "assets-cdn.github.com"
+        curl -I https://assets-cdn.github.com
+        ping -c 4 assets-cdn.github.com
+        echo "avatars.githubusercontent.com"
+        curl -I https://avatars.githubusercontent.com
+        ping -c 4 avatars.githubusercontent.com
     - name: run script
       run: |
         # fetch new ip content and update readme file

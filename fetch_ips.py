@@ -168,8 +168,8 @@ def main(verbose=False) -> None:
     if not content:
         print('content值为空');
         return
-    update_time = datetime.utcnow().astimezone(
-        timezone(timedelta(hours=8))).replace(microsecond=0).isoformat()
+    update_time = datetime.utcnow().astimezone(timezone(
+        timedelta(hours=8))).strftime('%Y-%m-%d %H:%M:%S UTC-8')
     hosts_content = HOSTS_TEMPLATE.format(content=content, update_time=update_time)
     has_change = write_file(hosts_content, update_time)
     if has_change:
